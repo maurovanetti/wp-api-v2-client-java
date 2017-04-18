@@ -3,9 +3,14 @@
     <groupId>com.afrozaar.wordpress</groupId>
     <artifactId>wp-api-v2-client-java</artifactId>
     <packaging>jar</packaging>
-    
+
     <version>2.0-beta15.2-SNAPSHOT</version>
-    
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A Java client implementation to the WordPress WP-API v2 plugin.</description>
     <url>https://github.com/afrozaar/wp-api-v2-client-java</url>
@@ -77,14 +82,14 @@
             <id>ssl</id>
             <dependencies>
                 <dependency>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpcore</artifactId>
-                    <version>4.4.5</version>
+                    <groupId>org.apache.servicemix.bundles</groupId>
+                    <artifactId>org.apache.servicemix.bundles.httpcore</artifactId>
+                    <version>4.0-alpha6_1</version>
                 </dependency>
                 <dependency>
-                    <groupId>org.apache.httpcomponents</groupId>
-                    <artifactId>httpclient</artifactId>
-                    <version>4.5.1</version>
+                    <groupId>org.apache.servicemix.bundles</groupId>
+                    <artifactId>org.apache.servicemix.bundles.commons-httpclient</artifactId>
+                    <version>3.1_7</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -105,6 +110,7 @@
         </pluginManagement>
 
         <plugins>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -122,6 +128,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.jolokia</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
@@ -129,7 +136,7 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>afrozaar/wordpress</name>
+                            <name>maurovanetti/wordpress:basicauth</name>
                             <run>
                                 <log>
                                     <enabled>true</enabled>
@@ -211,7 +218,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>4.1.7.RELEASE</version>
-        </dependency>
+        </dependency>        
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -243,11 +250,6 @@
             <artifactId>commons-beanutils-core</artifactId>
             <version>1.8.3</version>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.10</version>
-            <scope>test</scope>
-        </dependency>
+
     </dependencies>
 </project>

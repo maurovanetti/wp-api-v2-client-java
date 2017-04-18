@@ -69,8 +69,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.transform.Source;
-
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URLDecoder;
@@ -133,7 +131,7 @@ public class Client implements Wordpress {
         messageConverters.add(new ByteArrayHttpMessageConverter());
         messageConverters.add(new StringHttpMessageConverter());
         messageConverters.add(new ResourceHttpMessageConverter());
-        messageConverters.add(new SourceHttpMessageConverter<Source>());
+        messageConverters.add(new SourceHttpMessageConverter<>());
         messageConverters.add(new AllEncompassingFormHttpMessageConverter());
         messageConverters.add(new MappingJackson2HttpMessageConverter(emptyArrayAsNullObjectMapper));
         //messageConverters.add(new MappingJackson2HttpMessageConverter());
@@ -454,7 +452,7 @@ public class Client implements Wordpress {
             return doExchange1(Request.TAGS, HttpMethod.POST, Term.class, forExpand(), tagTerm.asMap(), null).getBody();
         } catch (HttpClientErrorException | HttpServerErrorException e) {
             final WpApiParsedException exception = WpApiParsedException.of(e);
-            LOG.error("Could not create tag '{}'. {} ", tagTerm.getName(), exception.getMessage(), exception);
+            //LOG.error("Could not create tag '{}'. {} ", tagTerm.getName(), exception.getMessage(), exception);
             throw exception;
         }
     }
@@ -490,7 +488,7 @@ public class Client implements Wordpress {
             final ResponseEntity<String> tResponseEntity = doExchange1(Request.TAG, HttpMethod.DELETE, String.class, forExpand(tagTerm.getId()), queryParams, null);
             final DeleteResponse<Term> termDeleteResponse = CustomRenderableParser.parseDeleteResponse(tResponseEntity, Term.class);
             final Term previous = termDeleteResponse.getPrevious();
-            LOG.debug("Deleted term @{}/'{}' of taxonomy '{}': {}", previous.getId(), previous.getName(), previous.getTaxonomySlug(), termDeleteResponse.getDeleted());
+            //LOG.debug("Deleted term @{}/'{}' of taxonomy '{}': {}", previous.getId(), previous.getName(), previous.getTaxonomySlug(), termDeleteResponse.getDeleted());
             return previous;
         } catch (HttpClientErrorException e) {
             if (e.getStatusCode().is4xxClientError() && e.getStatusCode().value() == 404) {
